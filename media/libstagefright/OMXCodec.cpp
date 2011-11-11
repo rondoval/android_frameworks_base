@@ -353,6 +353,8 @@ static const CodecInfo kDecoderInfo[] = {
     { MEDIA_MIMETYPE_VIDEO_AVC, "AVCDecoder" },
 //    { MEDIA_MIMETYPE_VIDEO_AVC, "OMX.PV.avcdec" },
     //{MEDIA_MIMETYPE_VIDEO_WMV, "OMX.Nvidia.vc1.decode" },
+    { MEDIA_MIMETYPE_VIDEO_WMV, "OMX.TI.720P.Decoder" },
+    { MEDIA_MIMETYPE_VIDEO_WMV, "OMX.TI.Video.Decoder" },
     { MEDIA_MIMETYPE_AUDIO_VORBIS, "VorbisDecoder" },
     { MEDIA_MIMETYPE_VIDEO_VPX, "VPXDecoder" },
 };
