@@ -1386,9 +1386,15 @@ public final class SIMRecords extends IccRecords {
         } else if (isOnMatchingPlmn(plmn)) {
             // registered PLMN is either HPLMN or a PLMN in the EF_SPDI list.
             rule = SPN_RULE_SHOW_SPN;
+<<<<<<< HEAD
 
             if ((spnDisplayCondition & 0x01) == 0x01 || forcePlmnDisplay) {
                 // ONS required when registered to HPLMN or PLMN in EF_SPDI or forced by user preference
+=======
+            if ((spnDisplayCondition & 0x01) == 0x01) {
+                // b1=0: ONS is not required
+                // b1=1: ONS is required
+>>>>>>> cm_gingerbread
                 rule |= SPN_RULE_SHOW_PLMN;
             }
         } else {
