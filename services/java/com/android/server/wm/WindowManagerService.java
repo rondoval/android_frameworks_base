@@ -6097,7 +6097,7 @@ public class WindowManagerService extends IWindowManager.Stub
         } catch (Exception e) {
             // Ignore
         }
-        boolean hardKeyboardAvailable = ((sw == 0) || (config.keyboard == Configuration.KEYBOARD_NOKEYS));
+        boolean hardKeyboardAvailable = ((sw == -1) || (config.keyboard == Configuration.KEYBOARD_NOKEYS));
 
         if (hardKeyboardAvailable != mHardKeyboardAvailable) {
             mHardKeyboardAvailable = hardKeyboardAvailable;
