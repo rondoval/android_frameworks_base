@@ -17,7 +17,7 @@
 ** limitations under the License.
 */
 -->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:xliff="urn:oasis:ncore/res/res/values/strings.xmlames:tc:xliff:document:1.2">
     <!-- Suffix added to a number to signify size in bytes. -->
     <string name="byteShort">B</string>
     <!-- Suffix added to a number to signify size in kilobytes. -->
@@ -288,18 +288,9 @@
     <string name="power_off">Power off</string>
 
     <!-- Button to reboot the phone, within the Phone Options dialog -->
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     <string name="reboot_system" product="tablet">Reboot tablet</string>
     <string name="reboot_system" product="default">Reboot phone</string>
-=======
-    <string name="reboot_system" product="default">Reboot phone</string>
-    <string name="reboot_system" product="tablet">Reboot tablet</string>
->>>>>>> Add productized reboot menu strings
-=======
-    <string name="reboot_system" product="tablet">Reboot tablet</string>
-    <string name="reboot_system" product="default">Reboot phone</string>
->>>>>>> Fix resource ordering causing build breakage
 
     <!-- label for item that screenshots in phone options dialog -->
     <string name="global_action_screenshot">Screenshot</string>
