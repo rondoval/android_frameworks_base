@@ -28,6 +28,7 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.StatusBarManager;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -48,6 +49,8 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.RemoteException;
 import android.os.ServiceManager;
+import android.os.storage.StorageManager;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Slog;
 import android.view.accessibility.AccessibilityEvent;
@@ -123,6 +126,8 @@ public class TabletStatusBar extends StatusBar implements
     int mIconHPadding = -1;
     private int mMaxNotificationIcons = 5;
 
+    private boolean mShowClock;
+
     H mHandler = new H();
 
     IWindowManager mWindowManager;
@@ -195,6 +200,8 @@ public class TabletStatusBar extends StatusBar implements
 
     public Context getContext() { return mContext; }
 
+    private StorageManager mStorageManager;
+
     protected void addPanelWindows() {
         final Context context = mContext;
         final Resources res = mContext.getResources();
@@ -215,6 +222,11 @@ public class TabletStatusBar extends StatusBar implements
         // Bt
         mBluetoothController.addIconView(
                 (ImageView)mNotificationPanel.findViewById(R.id.bluetooth));
+
+        // storage
+        mStorageManager = (StorageManager) context.getSystemService(Context.STORAGE_SERVICE);
+        mStorageManager.registerListener(
+                new com.android.systemui.usb.StorageNotification(context));
 
         // network icons: either a combo icon that switches between mobile and data, or distinct
         // mobile and data icons
@@ -934,10 +946,14 @@ public class TabletStatusBar extends StatusBar implements
     }
 
     public void showClock(boolean show) {
+        ContentResolver resolver = mContext.getContentResolver();
+
         View clock = mBarContents.findViewById(R.id.clock);
         View network_text = mBarContents.findViewById(R.id.network_text);
+        mShowClock = (Settings.System.getInt(resolver,
+                Settings.System.STATUS_BAR_CLOCK, 1) == 1);
         if (clock != null) {
-            clock.setVisibility(show ? View.VISIBLE : View.GONE);
+            clock.setVisibility(show ? (mShowClock ? View.VISIBLE : View.GONE) : View.GONE);
         }
         if (network_text != null) {
             network_text.setVisibility((!show) ? View.VISIBLE : View.GONE);
