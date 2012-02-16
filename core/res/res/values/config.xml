@@ -749,6 +749,11 @@
 
     <!-- CM CHANGES START HERE -->
 
+    <!-- Contains a list of vendor specific services to start via ServiceManager.
+         Format for each item is: <path_to_service_jar_file>:<service_class_name> -->
+    <string-array name="config_vendorServices">
+    </string-array>
+
     <!-- LUN file to be used by legacy USB manager.
          The existence of this file will be used to determine in the
          legacy USB manager should be started. -->
