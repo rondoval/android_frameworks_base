@@ -51,7 +51,6 @@ LOCAL_SRC_FILES:= \
 	GraphicLog.cpp \
 	InputTransport.cpp \
 	IOverlay.cpp \
-	Overlay.cpp \
 	PixelFormat.cpp \
 	Rect.cpp \
 	Region.cpp
