@@ -40,15 +40,15 @@ namespace android {
 
 // ---------------------------------------------------------------------------
 
-MemoryHeapBase::MemoryHeapBase()
+MemoryHeapBase::MemoryHeapBase() 
     : mFD(-1), mSize(0), mBase(MAP_FAILED),
-      mDevice(NULL), mNeedUnmap(false), mOffset(0)
+      mDevice(NULL), mNeedUnmap(false) 
 {
 }
 
 MemoryHeapBase::MemoryHeapBase(size_t size, uint32_t flags, char const * name)
     : mFD(-1), mSize(0), mBase(MAP_FAILED), mFlags(flags),
-      mDevice(0), mNeedUnmap(false), mOffset(0)
+      mDevice(0), mNeedUnmap(false)
 {
     const size_t pagesize = getpagesize();
     size = ((size + pagesize-1) & ~(pagesize-1));
@@ -65,7 +65,7 @@ MemoryHeapBase::MemoryHeapBase(size_t size, uint32_t flags, char const * name)
 
 MemoryHeapBase::MemoryHeapBase(const char* device, size_t size, uint32_t flags)
     : mFD(-1), mSize(0), mBase(MAP_FAILED), mFlags(flags),
-      mDevice(0), mNeedUnmap(false), mOffset(0)
+      mDevice(0), mNeedUnmap(false)
 {
     int open_flags = O_RDWR;
     if (flags & NO_CACHING)
@@ -84,7 +84,7 @@ MemoryHeapBase::MemoryHeapBase(const char* device, size_t size, uint32_t flags)
 
 MemoryHeapBase::MemoryHeapBase(int fd, size_t size, uint32_t flags, uint32_t offset)
     : mFD(-1), mSize(0), mBase(MAP_FAILED), mFlags(flags),
-      mDevice(0), mNeedUnmap(false), mOffset(0)
+      mDevice(0), mNeedUnmap(false)
 {
     const size_t pagesize = getpagesize();
     size = ((size + pagesize-1) & ~(pagesize-1));
@@ -132,7 +132,6 @@ status_t MemoryHeapBase::mapfd(int fd, size_t size, uint32_t offset)
             close(fd);
             return -errno;
         }
-        //LOGD("mmap(fd=%d, base=%p, size=%lu)", fd, base, size);
         mBase = base;
         mNeedUnmap = true;
     } else  {
@@ -141,7 +140,6 @@ status_t MemoryHeapBase::mapfd(int fd, size_t size, uint32_t offset)
     }
     mFD = fd;
     mSize = size;
-    mOffset = offset;
     return NO_ERROR;
 }
 
@@ -155,7 +153,6 @@ void MemoryHeapBase::dispose()
     int fd = android_atomic_or(-1, &mFD);
     if (fd >= 0) {
         if (mNeedUnmap) {
-            //LOGD("munmap(fd=%d, base=%p, size=%lu)", fd, mBase, mSize);
             munmap(mBase, mSize);
         }
         mBase = 0;
@@ -182,10 +179,6 @@ uint32_t MemoryHeapBase::getFlags() const {
 
 const char* MemoryHeapBase::getDevice() const {
     return mDevice;
-}
-
-uint32_t MemoryHeapBase::getOffset() const {
-    return mOffset;
 }
 
 // ---------------------------------------------------------------------------
