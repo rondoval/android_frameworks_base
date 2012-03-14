@@ -43,7 +43,7 @@ int getBppFromOverlayFormat(const OverlayFormats format) {
         bpp = 12;
         break;
     default:
-        bpp = 0;
+        bpp = 32;
     }
     return bpp;
 }
@@ -91,6 +91,7 @@ Overlay::Overlay(uint32_t width, uint32_t height, OverlayFormats format, overlay
         mBuffers[i].offset = BUFFER_SIZE * i;
         mBuffers[i].ptr = mmap(NULL, BUFFER_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fd, BUFFER_SIZE * i);
         if (mBuffers[i].ptr == MAP_FAILED) {
+            mBuffers[i].ptr = NULL;
             LOGE("%s: Failed to mmap buffer %d", __FUNCTION__, i);
         }
         mQueued[i]=false;
